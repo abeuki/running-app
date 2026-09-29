@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "api" : "npx json-server db.json"
+    "api": "npx json-server db.json"
   },
   "private": true,
   "packageManager": "npm@11.11.0",
@@ -18,6 +18,9 @@
     "@angular/forms": "^21.2.0",
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "@ngrx/effects": "^21.1.1",
+    "@ngrx/entity": "^21.1.1",
+    "@ngrx/store": "^21.1.1",
     "json-server": "^1.0.0-beta.15",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

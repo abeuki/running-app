@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Runner } from '../../../models/Runner';
 
 @Component({
   selector: 'app-runner-preview',
@@ -6,4 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './runner-preview.html',
   styleUrl: './runner-preview.css',
 })
-export class RunnerPreview {}
+export class RunnerPreview {
+
+  @Input()
+  runner : Runner | null = null;
+
+
+  
+}
