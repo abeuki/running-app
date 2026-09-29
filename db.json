@@ -1,14 +1,114 @@
 {
   "$schema": "./node_modules/json-server/schema.json",
-  "posts": [
-    { "id": "1", "title": "a title", "views": 100 },
-    { "id": "2", "title": "another title", "views": 200 }
+
+  "coaches": [
+    {
+      "id": 1,
+      "name": "Marko Marković"
+    }
   ],
-  "comments": [
-    { "id": "1", "text": "a comment about post 1", "postId": "1" },
-    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+
+  "runners": [
+    {
+      "id": 1,
+      "name": "Petar Petrović",
+      "coachId": 1
+    },
+    {
+      "id": 2,
+      "name": "Nikola Nikolić",
+      "coachId": 1
+    }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+
+  "runs": [
+    {
+      "id": 1,
+      "runnerId": 1,
+      "startedAt": "2026-09-29T18:00:00.000Z",
+      "finishedAt": "2026-09-29T18:27:00.000Z"
+    },
+    {
+      "id": 2,
+      "runnerId": 2,
+      "startedAt": "2026-09-29T18:05:00.000Z",
+      "finishedAt": "2026-09-29T18:33:00.000Z"
+    }
+  ],
+
+  "runPoints": [
+    {
+      "id": 1,
+      "runId": 1,
+      "timestamp": 0,
+      "latitude": 43.3209,
+      "longitude": 21.8958,
+      "altitude": 198,
+      "heartRate": 132
+    },
+    {
+      "id": 2,
+      "runId": 1,
+      "timestamp": 10,
+      "latitude": 43.3212,
+      "longitude": 21.8964,
+      "altitude": 200,
+      "heartRate": 138
+    },
+    {
+      "id": 3,
+      "runId": 1,
+      "timestamp": 20,
+      "latitude": 43.3218,
+      "longitude": 21.8972,
+      "altitude": 201,
+      "heartRate": 142
+    },
+    {
+      "id": 4,
+      "runId": 1,
+      "timestamp": 30,
+      "latitude": 43.3224,
+      "longitude": 21.8980,
+      "altitude": 203,
+      "heartRate": 146
+    },
+
+    {
+      "id": 5,
+      "runId": 2,
+      "timestamp": 0,
+      "latitude": 43.3230,
+      "longitude": 21.8990,
+      "altitude": 199,
+      "heartRate": 128
+    },
+    {
+      "id": 6,
+      "runId": 2,
+      "timestamp": 10,
+      "latitude": 43.3235,
+      "longitude": 21.8997,
+      "altitude": 200,
+      "heartRate": 133
+    },
+    {
+      "id": 7,
+      "runId": 2,
+      "timestamp": 20,
+      "latitude": 43.3241,
+      "longitude": 21.9005,
+      "altitude": 202,
+      "heartRate": 139
+    },
+    {
+      "id": 8,
+      "runId": 2,
+      "timestamp": 30,
+      "latitude": 43.3247,
+      "longitude": 21.9012,
+      "altitude": 204,
+      "heartRate": 144
+    }
+  ]
 }
