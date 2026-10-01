@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import * as RunnerActions from "./store.actions"
-import { RunnerService } from "../services/runner-service";
+import * as RunnerActions from "./runners.actions"
+import { RunnerService } from "../../services/runner-service";
 import { catchError, EMPTY, exhaustMap, map } from "rxjs";
 
 @Injectable()

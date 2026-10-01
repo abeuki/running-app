@@ -1,1 +1,7 @@
-<p>runners-list works!</p>
+<ul>
+    @for (runner of (runners$ | async); track runner) {
+        <li>
+            <app-runner-preview [runner] = runner (runnerClick)="onRunnerClick($event)"></app-runner-preview>
+        </li>
+    }
+</ul>

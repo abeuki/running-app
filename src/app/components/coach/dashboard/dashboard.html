@@ -1,9 +1,2 @@
-<p>dashboard works!</p>
-
-<ul>
-    @for (runner of (runners$ | async); track runner) {
-        <li>
-            <app-runner-preview [runner] = runner></app-runner-preview>
-        </li>
-    }
-</ul>
+<app-runners-list></app-runners-list>
+<app-all-runs></app-all-runs>

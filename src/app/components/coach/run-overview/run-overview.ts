@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Run } from '../../../models/Run';
 
 @Component({
   selector: 'app-run-overview',
@@ -6,4 +7,9 @@ import { Component } from '@angular/core';
   templateUrl: './run-overview.html',
   styleUrl: './run-overview.css',
 })
-export class RunOverview {}
+export class RunOverview {
+  @Input()
+  run: Run | null = null;
+
+  
+}
