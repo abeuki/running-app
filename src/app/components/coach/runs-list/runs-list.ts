@@ -20,7 +20,7 @@ export class RunsList {
   }
 
   ngOnInit(){
-    this.store.dispatch(Actions.loadRuns({runnerId: this.runnerId}));
+    this.store.dispatch(Actions.loadRuns());
     //this.runs$ = this.store.select()
   }
 }

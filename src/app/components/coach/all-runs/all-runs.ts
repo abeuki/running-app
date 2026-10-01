@@ -7,6 +7,7 @@ import { Run } from '../../../models/Run';
 import { Runner } from '../../../models/Runner';
 import * as Actions from '../../../store/runners/runners.actions'
 import { selectSelectedRunnerId1, selectSelectedRunnerId2 } from '../../../store/runners/runners.selector';
+import { loadRuns } from '../../../store/runs/runs.actions';
 @Component({
   selector: 'app-all-runs',
   imports: [RunsList],
@@ -24,6 +25,7 @@ export class AllRuns {
   runnerId2: number | null = null;
    
   ngOnInit(){
+    this.store.dispatch(loadRuns());
     this.store.select(selectSelectedRunnerId1).subscribe(selectedId => 
       this.runnerId1 = selectedId
     );
