@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { RunsList } from '../runs-list/runs-list';
 import { AppState } from '../../../app.state';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { Run } from '../../../models/Run';
 import { Runner } from '../../../models/Runner';
 import * as Actions from '../../../store/runners/runners.actions'
-import { selectSelectedRunnerId1, selectSelectedRunnerId2 } from '../../../store/runners/runners.selector';
+import { selectSelectedRunner1, selectSelectedRunner2, selectSelectedRunnerId1, selectSelectedRunnerId2 } from '../../../store/runners/runners.selector';
 import { loadRuns } from '../../../store/runs/runs.actions';
+import { selectRuns, selectRunsForRunner1, selectRunsForRunner2 } from '../../../store/runs/runs.selector';
 @Component({
   selector: 'app-all-runs',
   imports: [RunsList],
@@ -20,19 +21,29 @@ export class AllRuns {
   ){
 
   }
-
-  runnerId1: number | null = null;
-  runnerId2: number | null = null;
+  runner1: Runner | null = null;
+  runs1: Run[] = [];
+  
+  runner2: Runner | null = null;
+  runs2: Run[] = [];
    
   ngOnInit(){
     this.store.dispatch(loadRuns());
-    this.store.select(selectSelectedRunnerId1).subscribe(selectedId => 
-      this.runnerId1 = selectedId
+
+    this.store.select(selectSelectedRunner1).subscribe(runner =>
+      this.runner1 = runner
     );
-    this.store.select(selectSelectedRunnerId2).subscribe(selectedId =>
-      this.runnerId2 = selectedId
+    this.store.select(selectSelectedRunner2).subscribe(runner =>
+      this.runner2 = runner
     );
+
+    this.store.select(selectRunsForRunner1).subscribe(runs => 
+      this.runs1 = runs
+    )
+
+    this.store.select(selectRunsForRunner2).subscribe(runs => 
+      this.runs2 = runs
+    )
   }
 
-  
 }

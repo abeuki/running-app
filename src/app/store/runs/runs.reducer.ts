@@ -10,10 +10,7 @@ export const initialState = adapter.getInitialState();
 
 export const runsReducer = createReducer(
     initialState,
-    on(Actions.loadRunsSuccess, (state, {runs}) => {
-        return {
-            ...state,
-            runs: runs
-        }
-    })
+    on(Actions.loadRunsSuccess, (state, {runs}) => 
+        adapter.setAll(runs, state)
+    )
 )

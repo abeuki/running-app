@@ -23,3 +23,17 @@ export const selectRunnersList = createSelector(
     .filter(runner => runner != null)
     .map(runner => <Runner> runner)
 )
+
+export const selectSelectedRunner1 = createSelector(
+    selectRunnersList,
+    selectSelectedRunnerId1,
+    (runners, id) => 
+        id == null ? null : runners.find(runner => runner.id == id) ?? null
+)
+
+export const selectSelectedRunner2 = createSelector(
+    selectRunnersList,
+    selectSelectedRunnerId2,
+    (runners, id) => 
+        id == null ? null : runners.find(runner => runner.id == id) ?? null
+)

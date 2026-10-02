@@ -4,6 +4,8 @@ import { AppState } from '../../../app.state';
 import * as Actions from '../../../store/runs/runs.actions'
 import { Observable, of } from 'rxjs';
 import { Run } from '../../../models/Run';
+import { selectRuns } from '../../../store/runs/runs.selector';
+import { Runner } from '../../../models/Runner';
 @Component({
   selector: 'app-runs-list',
   imports: [],
@@ -12,15 +14,12 @@ import { Run } from '../../../models/Run';
 })
 export class RunsList {
   @Input()
-  runnerId: number = 0;
+  runner: Runner | null = null;
 
-  runs$ : Observable<Run[]> = of();
+  @Input()
+  runs : Run[] = [];
+
   constructor(private store: Store<AppState>){
 
-  }
-
-  ngOnInit(){
-    this.store.dispatch(Actions.loadRuns());
-    //this.runs$ = this.store.select()
   }
 }

@@ -1,0 +1,11 @@
+<p>{{runner?.name}}</p>
+<ul>
+    @for (run of runs; track run.id) {
+        <li>
+            <p>run id: {{run.id}}</p>
+            <p>runner id: {{run.runnerId}}</p>
+            <p>started at: {{run.startedAt}}</p>
+            <p>finished at: {{run.finishedAt}}</p>
+        </li>
+    }
+</ul>
