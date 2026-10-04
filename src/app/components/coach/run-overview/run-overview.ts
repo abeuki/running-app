@@ -8,10 +8,11 @@ import { Store } from '@ngrx/store';
 import { selectLoadedRunIds, selectRunPointsByRunId } from '../../../store/runPoints/runpoints.selector';
 import { loadRunPointsByRunId } from '../../../store/runPoints/runpoints.actions';
 import { AsyncPipe } from '@angular/common';
+import { Map } from '../map/map';
 
 @Component({
   selector: 'app-run-overview',
-  imports: [Graph, AsyncPipe],
+  imports: [Graph, AsyncPipe, Map],
   templateUrl: './run-overview.html',
   styleUrl: './run-overview.css',
 })

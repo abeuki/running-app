@@ -3,9 +3,9 @@ import { bpm, metres, seconds } from "./datatypes";
 export interface RunPoint{
     id: number;
     runId: number;
-    timestamp: seconds;
-    latitude: metres;
-    longitude: metres;
+    datetime: string;
+    latitude: metres; //geografska sirina
+    longitude: metres; //geografska duzina
     altitude: metres;
     heartRate: bpm;
 }
