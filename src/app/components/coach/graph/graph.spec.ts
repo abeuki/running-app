@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Map } from './map';
+import { Graph } from './graph';
 
-describe('Map', () => {
-  let component: Map;
-  let fixture: ComponentFixture<Map>;
+describe('Graph', () => {
+  let component: Graph;
+  let fixture: ComponentFixture<Graph>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Map],
+      imports: [Graph],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Map);
+    fixture = TestBed.createComponent(Graph);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

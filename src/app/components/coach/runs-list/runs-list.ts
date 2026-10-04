@@ -6,9 +6,10 @@ import { Observable, of } from 'rxjs';
 import { Run } from '../../../models/Run';
 import { selectRuns } from '../../../store/runs/runs.selector';
 import { Runner } from '../../../models/Runner';
+import { RunOverview } from '../run-overview/run-overview';
 @Component({
   selector: 'app-runs-list',
-  imports: [],
+  imports: [RunOverview],
   templateUrl: './runs-list.html',
   styleUrl: './runs-list.css',
 })

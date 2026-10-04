@@ -1,0 +1,11 @@
+@if(run != null){
+    <div (click)="toggle()">
+    <p>run id: {{run.id}}</p>
+    <p>runner id: {{run.runnerId}}</p>
+    <p>started at: {{run.startedAt}}</p>
+    <p>finished at: {{run.finishedAt}}</p>
+    </div>
+    <div class="collapse" [class.show] = "expanded">
+        <app-graph></app-graph>
+    </div>
+}
