@@ -9,6 +9,8 @@ import { runnersEffects } from './store/runners/runners.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { runsReducer } from './store/runs/runs.reducer';
 import { runsEffects } from './store/runs/runs.effects';
+import { runPointsEffects } from './store/runPoints/runpoints.effects';
+import { runPointsReducer } from './store/runPoints/runpoints.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,9 +18,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore({
       runners: runnersReducer,
-      runs: runsReducer
+      runs: runsReducer,
+      runPoints: runPointsReducer
     }),
-    provideEffects(runnersEffects, runsEffects),
+    provideEffects(runnersEffects, runsEffects, runPointsEffects),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

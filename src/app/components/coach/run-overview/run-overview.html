@@ -6,6 +6,14 @@
     <p>finished at: {{run.finishedAt}}</p>
     </div>
     <div class="collapse" [class.show] = "expanded">
-        <app-graph></app-graph>
+        @for (runPoint of (runPoints$ | async) ; track runPoint.id) {
+            <p>runPointId: {{runPoint.id}}</p>
+            <p>timestamp: {{runPoint.timestamp}}</p>
+            <p>longitude: {{runPoint.longitude}}</p>
+            <p>latitude: {{runPoint.latitude}}</p>
+            <p>altitude: {{runPoint.altitude}}</p>
+            <p>heart rate: {{runPoint.heartRate}}</p>
+        }
+        <app-graph ></app-graph>
     </div>
 }

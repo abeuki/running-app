@@ -15,7 +15,7 @@ export const initialState : RunPointsState = adapter.getInitialState({
 
 export const runPointsReducer = createReducer(
     initialState,
-    on(Actions.loadRunPointsSuccess, (state, {runId, runPoints}) => 
+    on(Actions.loadRunPointsByRunIdSuccess, (state, {runId, runPoints}) => 
     adapter.addMany(runPoints, {
         ...state,
         loadedRunsIds:[...state.loadedRunsIds, runId]
