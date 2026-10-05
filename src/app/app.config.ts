@@ -1,6 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
@@ -11,6 +10,7 @@ import { runsReducer } from './store/runs/runs.reducer';
 import { runsEffects } from './store/runs/runs.effects';
 import { runPointsEffects } from './store/runPoints/runpoints.effects';
 import { runPointsReducer } from './store/runPoints/runpoints.reducer';
+import { provideHighcharts } from 'highcharts-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,6 +29,15 @@ export const appConfig: ApplicationConfig = {
       trace: false, //  If set to true, will include stack trace for every dispatched action, so you can see it in trace tab jumping directly to that part of code
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
       connectInZone: true, // If set to true, the connection is established within the Angular zone
+    }),
+   
+    provideHighcharts({
+      instance: () =>
+        import('highcharts/esm/highcharts').then(m => m.default),
+
+      modules: () => [
+        import('highcharts/esm/modules/draggable-points')
+      ]
     }),
   ],
 };

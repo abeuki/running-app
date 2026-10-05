@@ -1,18 +1,28 @@
 @if(run != null){
-    <div (click)="toggle()">
-    <p>run id: {{run.id}}</p>
-    <p>runner id: {{run.runnerId}}</p>
-    <p>started at: {{run.startedAt}}</p>
-    <p>finished at: {{run.finishedAt}}</p>
-    </div>
-    @if (expanded) {
-        <app-map
-            [runId]="run.id"
-            [runPoints]="(runPoints$ | async) ?? []">
-        </app-map>
 
-        <app-graph
-            [runPoints]="(runPoints$ | async) ?? []">
-        </app-graph>
+    <div (click)="toggle()">
+        <p>run id: {{run.id}}</p>
+        <p>runner id: {{run.runnerId}}</p>
+        <p>started at: {{run.startedAt}}</p>
+        <p>finished at: {{run.finishedAt}}</p>
+    </div>
+
+    @if (expanded) {
+
+        @if ((runPoints$ | async); as runPoints) {
+
+            @if (runPoints.length > 0) {
+
+                <app-map
+                    [runId]="run.id"
+                    [runPoints]="runPoints">
+                </app-map>
+
+                <app-graph
+                    [runPoints]="runPoints">
+                </app-graph>
+
+            }
+        }
     }
 }

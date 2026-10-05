@@ -17,25 +17,31 @@ import { Map } from '../map/map';
   styleUrl: './run-overview.css',
 })
 export class RunOverview {
-  @Input()
-  run: Run | null = null;
-  
   loadedRunIds$ : Observable<number[]> = of();
   runPoints$ : Observable<RunPoint[]> = of();
 
-  expanded = false;
+  @Input()
+  set run(value: Run | null) {
+    this._run = value;
 
-  constructor(private store: Store<AppState>){}
-
-  ngOnInit(){
-    this.loadedRunIds$ = this.store.select(selectLoadedRunIds);
-
-    if (this.run) {
-      this.runPoints$ = this.store.select(
-        selectRunPointsByRunId(this.run.id)
-      );
+    if (value) {
+      this.runPoints$ = this.store.select(selectRunPointsByRunId(value.id));
+    } else {
+      this.runPoints$ = of([]);
     }
   }
+
+  get run(): Run | null {
+    return this._run;
+  }
+
+  private _run: Run | null = null;
+  expanded = false;
+
+  constructor(private store: Store<AppState>){
+    this.loadedRunIds$ = this.store.select(selectLoadedRunIds);
+  }
+
 
   toggle(){
     this.expanded = !this.expanded;

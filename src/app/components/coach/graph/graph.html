@@ -1,5 +1,9 @@
-<ul>
+<!-- <ul>
 @for(pacePoint of (pacePoints$ | async); track pacePoint.minute) {
     <li>Minut {{ pacePoint.minute }}:  {{ formatPace(pacePoint.pace) }} min/km</li>
 }
-</ul>
+</ul> -->
+<highcharts-chart
+  [options]="chartOptions"
+  style="width: 100%; height: 400px; display: block;">
+</highcharts-chart>

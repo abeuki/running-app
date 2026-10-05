@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { metres, minutesPerKilometer, seconds } from '../../models/datatypes';
-import { PacePoint } from '../../models/PacePoint';
-import { from, last, map, Observable, pairwise, scan } from 'rxjs';
+import { PaceSegment } from '../../models/PaceSegment';
+import { from, last, map, Observable, of, pairwise, scan } from 'rxjs';
 import { RunPoint } from '../../models/RunPoint';
 
 interface Segment{
@@ -11,8 +11,8 @@ interface Segment{
 interface PaceState{
   elapsedTime: seconds;
   distance: metres;
-  minute: number;
-  pacePoints: PacePoint[];
+  currentMinute: number;
+  paceSegments: PaceSegment[];
 }
 
 @Injectable({
@@ -23,7 +23,11 @@ export class PaceService {
   private walkingPace: minutesPerKilometer = 12;
   private thresholdPace: minutesPerKilometer = 0.4;
 
-  calculatePace(points: RunPoint[]): Observable<PacePoint[]>{
+  calculatePace(points: RunPoint[]): Observable<PaceSegment[]>{
+    if(points.length < 2){
+      return of([]);
+    }
+    
     return from(points).pipe(
 
       pairwise(),
@@ -38,71 +42,122 @@ export class PaceService {
           current.latitude, current.longitude)
 
         return {
-          distance: distance,
-          duration: duration 
+          distance,
+          duration 
         }
       }),
 
-      scan((state: PaceState, segment: Segment): PaceState => {
-        const elapsedTime = state.elapsedTime + segment.duration;
-        const distance = state.distance + segment.distance;
+      scan(
+        (state: PaceState, segment: Segment): PaceState => {
 
-        if(elapsedTime < 60){
-          return {
-            ...state,
-            elapsedTime,
-            distance
-          };
-        }
+          const elapsedTime =
+            state.elapsedTime + segment.duration;
 
-        //ako je proslo 60 sekundi
-        const pace = (elapsedTime / 60) / (distance / 1000); //minuti po kilometru
+          const distance =
+            state.distance + segment.distance;
+
+          if (elapsedTime < 60) {
+            return {
+              ...state,
+              elapsedTime,
+              distance
+            };
+          }
+          
+          //kraj merenja jednog minuta
+
+          const pace =
+            (elapsedTime / 60) /
+            (distance / 1000);
+
+          const currentMinute =
+            state.currentMinute;
+
+          const lastSegment =
+            state.paceSegments[
+              state.paceSegments.length - 1
+            ];
+
+          if(pace > this.walkingPace){
+            return{
+              ...state,
+              elapsedTime: 0,
+              distance: 0,
+              currentMinute: currentMinute + 1
+            }
+          }
         
-        //onda se akumulirani pace dodaje u niz
-        //i racuna sledeca tacka pace-a.
-        //pace hoda (12min/km) i veci pace se ignorise
-        if (pace <= this.walkingPace) {
-          const pacePoint: PacePoint = {
-            minute: state.minute,
-            pace
-          };
+          // prvi segment
+          if (!lastSegment) {
 
-          const lastPacePoint =
-            state.pacePoints[state.pacePoints.length - 1];
-
-          //ako se pace dovoljno razlikuje od prethodnog
-          //dodaje se
-          if (
-              !lastPacePoint ||
-              Math.abs(pace - lastPacePoint.pace) >= this.thresholdPace
-            ) {
             return {
               elapsedTime: 0,
               distance: 0,
-              minute: state.minute + 1,
-              pacePoints: [...state.pacePoints, pacePoint]
+              currentMinute: currentMinute + 1,
+
+              paceSegments: [
+                {
+                  startMinute: currentMinute,
+                  endMinute: currentMinute + 1,
+                  pace
+                }
+              ]
             };
           }
-        }
 
-        return {
+          // ako je pace dovoljno slican,
+          // produzava se postojeći segment
+          if (Math.abs(pace - lastSegment.pace) < this.thresholdPace) 
+          {
+            return {
+              elapsedTime: 0,
+              distance: 0,
+              currentMinute: currentMinute + 1,
+
+              paceSegments: [
+                ...state.paceSegments.slice(0, -1),
+
+                {
+                  ...lastSegment,
+                  endMinute: currentMinute + 1
+                }
+              ]
+            };
+          }
+
+          // Pace se dovoljno promenio,
+          // pocinjemo novi segment
+          return {
+            elapsedTime: 0,
+            distance: 0,
+            currentMinute: currentMinute + 1,
+
+            paceSegments: [
+              ...state.paceSegments,
+
+              {
+                startMinute: currentMinute,
+                endMinute: currentMinute + 1,
+                pace
+              }
+            ]
+          };
+        },
+
+        {
           elapsedTime: 0,
           distance: 0,
-          minute: state.minute + 1,
-          pacePoints: state.pacePoints
-        };
-      }, {
-        elapsedTime: 0,
-        distance: 0,
-        minute: 1,
-        pacePoints: []
-      }),
+          currentMinute: 1,
+          paceSegments: []
+        }
+      ),
 
       last(),
 
-      map(state => state.pacePoints)
-    )
+      map(state => state.paceSegments)
+    );
   }
+
 
   
   private calculateDistance(
