@@ -1,1 +1,5 @@
-<p>graph works!</p>
+<ul>
+@for(pacePoint of (pacePoints$ | async); track pacePoint.minute) {
+    <li>Minut {{ pacePoint.minute }}:  {{ formatPace(pacePoint.pace) }} min/km</li>
+}
+</ul>

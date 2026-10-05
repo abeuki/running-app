@@ -5,8 +5,14 @@
     <p>started at: {{run.startedAt}}</p>
     <p>finished at: {{run.finishedAt}}</p>
     </div>
-    <div class="collapse" [class.show] = "expanded">
-        <app-map [runPoints]="(runPoints$ | async) ?? []" [runId]="run.id"></app-map>
-        <app-graph ></app-graph>
-    </div>
+    @if (expanded) {
+        <app-map
+            [runId]="run.id"
+            [runPoints]="(runPoints$ | async) ?? []">
+        </app-map>
+
+        <app-graph
+            [runPoints]="(runPoints$ | async) ?? []">
+        </app-graph>
+    }
 }
