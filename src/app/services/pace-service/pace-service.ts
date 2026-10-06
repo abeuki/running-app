@@ -158,8 +158,6 @@ export class PaceService {
     );
   }
 
-
-  
   private calculateDistance(
     latitude1: number,
     longitude1: number,
