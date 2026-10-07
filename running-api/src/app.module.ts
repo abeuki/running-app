@@ -12,6 +12,8 @@ import { RunsModule } from './runs/runs.module.js';
 import { RunPointsController } from './run-points/run-points.controller.js';
 import { RunPointsService } from './run-points/run-points.service.js';
 import { RunPointsModule } from './run-points/run-points.module.js';
+import { AuthModule } from './auth/auth.module.js';
+import { UsersModule } from './users/users.module.js';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { RunPointsModule } from './run-points/run-points.module.js';
     RunnersModule,
     RunsModule,
     RunPointsModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController, RunnersController, RunsController, RunPointsController],
   providers: [AppService, RunnersService, RunsService, RunPointsService],

@@ -48,3 +48,15 @@ model RunPoint {
 
   run Run @relation(fields: [runId], references: [id])
 }
+
+enum Role {
+  COACH
+  RUNNER
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  role     Role
+}
